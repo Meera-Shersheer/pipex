@@ -1,27 +1,31 @@
-SRC=
+SRC= pipex_utils.c pipex.c
 BNS=
 
 NAME = pipex
+BNS_NAME = pipex
+
 CC= cc
 CFLAGS= -Wall -Wextra -Werror
 #-g3 -fsanitize=address -g
 
-BNS_NAME = pipex
-#PATH LIB
-LFTDIR= ./Libft
+LFTDIR := ./Libft
 
-## create an object dir 
+SRC_DIR := src
 OBJ_DIR := obj
 
-OBJ_SRC = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
-OBJ_BNS = $(addprefix $(OBJ_DIR)/, $(BNS:.c=.o))
+SRC_PATH = $(addprefix $(SRC_DIR)/, $(SRC))
+BNS_PATH = $(addprefix $(SRC_DIR)/, $(BNS))
+
+
+OBJ_SRC = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_PATH))
+OBJ_BNS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(BNS_PATH))
 
 all: $(NAME)
 
 $(NAME): $(OBJ_SRC) | libft
 	$(CC) $(CFLAGS) $(OBJ_SRC) -o $(NAME) -L$(LFTDIR) -lft
 
-$(OBJ_DIR)/%.o: %.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR) 
 	$(CC) $(CFLAGS) -c $< -o $@
 
