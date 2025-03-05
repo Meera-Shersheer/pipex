@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:39:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/04 14:32:52 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/05 11:01:07 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 
 
 
-
-
+size_t	ft_strlen_d(char **s);
+char	*ft_strtrim_start(char const *s1, char const *set);
 
 
 #endif

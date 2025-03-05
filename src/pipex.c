@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:32 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/04 15:57:07 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/05 11:04:44 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main(int argc, char **argv, char **envp)
 	{
 			if(argv[2][0] == '/')
 			{
-				get_env_path();
+				get_env_path(envp);
 			}
 			//absolute path
 			if(argv[2][0] == '.')
@@ -55,14 +55,33 @@ int main(int argc, char **argv, char **envp)
 }
 
 
-get_env_path(char **envp)
+char	*get_env_path(char **envp)
 {
 	int i;
+	int list;
 
 	i = 0;
-	
-	while ()
+	list = ft_strlen_d(envp);
+	while (i < list)
 	{
+		if(ft_strncmp( envp[i], "PATH" , 4) == 0 )
+			return (envp[i]);
+		i++;
+	}
+	return (NULL);
+}
+
+char	**get_directories(char *path_env)
+{
+	char **dir;
+	char *path_var;
+
+	path_var = ft_strtrim_start(path_env, "PATH=");
 	
-	}	
+	dir = ft_split(path_var, ':');
+	if (dir == NULL)
+	{
+		// exit
+	}
+	return (dir);
 }
