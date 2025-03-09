@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:45 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/05 11:02:02 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/08 14:00:30 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,21 @@ char	*ft_strtrim_start(char const *s1, char const *set)
 	ptr = ft_memcpy((void *)ptr, &s1[r], t - r);
 	ptr[t - r] = '\0';
 	return (ptr);
+}
+
+void	ft_free(char **matrix)
+{
+	size_t	row;
+
+	row = 0;
+	if (!matrix)
+		return ;
+	if (!(*matrix))
+		return (free(matrix));
+	while (row < ft_strlen_d(matrix))
+	{
+		free (matrix[row]);
+		row++;
+	}
+	free (matrix);
 }

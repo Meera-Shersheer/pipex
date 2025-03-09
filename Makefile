@@ -1,12 +1,11 @@
-SRC= pipex_utils.c pipex.c
+SRC= pipex_utils.c pipex.c check_cmd.c
 BNS=
 
 NAME = pipex
 BNS_NAME = pipex
 
 CC= cc
-CFLAGS= -Wall -Wextra -Werror
-#-g3 -fsanitize=address -g
+CFLAGS= -Wall -Wextra -Werror -g3 -fsanitize=address -g
 
 LFTDIR := ./Libft
 
