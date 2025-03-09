@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:44:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/09 14:56:21 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/09 15:12:37 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 char **check_cmd_path(char *cmd_arg, char **envp)
 {
 	char *path_env;
+	char *temp;
 	char **cmd;
 	
 	path_env = NULL;
-	cmd = split_command(cmd_arg);
+	cmd = ft_split(cmd_arg, ' ');
 	if(cmd == NULL)
 		exit_program(NULL, NULL);
 	if(ft_isalpha(cmd[0][0]) == 0) //given an absoulute path or a relative path
@@ -29,18 +30,11 @@ char **check_cmd_path(char *cmd_arg, char **envp)
 	else // giving only the command name -> try different dirs to see if exists
 	{
 		path_env = get_env_path(envp);
-		check_cmd_exist(cmd, path_env);
+		temp = check_cmd_exist(cmd, path_env);
+		free(cmd[0]);
+		cmd[0] = temp;
 	}
 	return (cmd);
-}
-char	**split_command(char *cmd_arg)
-{
-	char **cmd;
-	
-	cmd = ft_split(cmd_arg, ' ');
-	if(cmd == NULL)
-		exit_program(NULL, NULL);
-	return(cmd);
 }
 
 char	*get_env_path(char **envp)
@@ -75,7 +69,7 @@ char	**get_directories(char *path_env)
 	return (dir);
 }
 
-void	check_cmd_exist(char **cmd, char *path_env)
+char	*check_cmd_exist(char **cmd, char *path_env)
 {
 	char **dir;
 	char *path;
@@ -90,15 +84,16 @@ void	check_cmd_exist(char **cmd, char *path_env)
 		if(temp == NULL)
 			exit_program(dir, NULL);
 		path = ft_strjoin(temp, cmd[0]);
-		free(temp);
+		if(temp)
+			free(temp);
 		if(path == NULL)
 			exit_program(dir, NULL);
 		if (access(path, F_OK | X_OK) == 0)
-			return(free(path), ft_free(dir));
+			return(ft_free(dir), path);
 		free(path);
 		i++;
 	}
 	ft_printf("Error: command not found\n");
 	ft_free(dir);
-	return ;
+	return (NULL);
 }

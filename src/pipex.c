@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:32 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/09 14:45:36 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/09 16:17:04 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,23 @@ int main(int argc, char **argv, char **envp)
 	cmd1 = check_cmd_path(argv[2], envp);
 	cmd2 = check_cmd_path(argv[3], envp);
 
-	print_result(cmd1);
-	print_result(cmd2);
+	// print_result(cmd1);
+	// print_result(cmd2);
+	
 	if (access(argv[4], F_OK) != 0)
 		open(argv[4], O_CREAT , S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (access(argv[4], W_OK) != 0)
 		exit_program(cmd1, cmd2);
 	
+	//exceute_cmd_read(cmd1[0], cmd1, argv[1]);
+	//exceute_command();
+	
 	if (cmd1 != NULL)
 		ft_free(cmd1);
 	if (cmd2 != NULL)
 		ft_free(cmd2);	
-	printf("success :) \n");
-		return 0;
+	// printf("success :) \n");
+	return 0;
 }
 
 void	exit_program(char **ptr1, char **ptr2)
