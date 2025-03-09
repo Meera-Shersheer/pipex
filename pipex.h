@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:39:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/09 16:01:24 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/09 22:32:39 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ char	**get_directories(char *path_env);
 char	*check_cmd_exist(char **cmd, char *path_env);
 
 //pipex
-void exit_program(char **ptr1, char **ptr2);
+void exit_program(char **ptr1, char **ptr2, int fd1, int fd2);
 void	print_result(char **result);
 
 //execute_cmd
-void    exceute_cmd_read(char *path, char **args, char *infile);
+void    exceute_cmd_in(char **args1, char **args2, char *infile, int *pipe_fd);
+void    exceute_cmd_out(char **args1, char **args2, char *outfile,int *pipe_fd);
+void pipex(char **args1, char **args2, char *infile, char *outfile);
 
 #endif
