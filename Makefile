@@ -5,7 +5,8 @@ NAME = pipex
 BNS_NAME = pipex
 
 CC= cc
-CFLAGS= -Wall -Wextra -Werror -g3 -fsanitize=address -g
+CFLAGS= -Wall -Wextra -Werror -g3
+#-g3 -fsanitize=address -g
 
 LFTDIR := ./Libft
 

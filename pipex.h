@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:39:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/08 18:03:59 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/09 13:51:48 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_free(char **matrix);
 char **check_cmd_path(char *cmd_arg, char **envp);
 char	*get_env_path(char **envp);
 char	**get_directories(char *path_env);
-char *check_cmd_exist(char **cmd, char *path_env);
+void	check_cmd_exist(char **cmd, char *path_env);
 char	**split_command(char *cmd_arg);
 
 //pipex
