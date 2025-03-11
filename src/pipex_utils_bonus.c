@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:45 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/11 15:10:39 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:10:45 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,3 @@ char	*ft_strtrim_start(char const *s1, char const *set)
 	return (ptr);
 }
 
-void	ft_free(char **matrix)
-{
-	size_t	row;
-
-	row = 0;
-	if (!matrix)
-		return ;
-	if (!(*matrix))
-		return (free(matrix));
-	while (row < ft_strlen_d(matrix))
-	{
-		free (matrix[row]);
-		row++;
-	}
-	free (matrix);
-}

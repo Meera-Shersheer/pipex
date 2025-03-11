@@ -1,0 +1,16 @@
+total 1344
+drwxr-xr-x 5 mshershe 2024_42campus      51 Mar  2 15:00 ..
+-rw-r--r-- 1 mshershe 2024_42campus     129 Mar  2 15:03 .gitignore
+-rw-r--r-- 1 mshershe 2024_42campus    1873 Mar 11 13:26 pipex.h
+drwxr-xr-x 8 mshershe 2024_42campus    4096 Mar 11 13:26 .git
+-rw-r--r-- 1 mshershe 2024_42campus     710 Mar 11 14:15 infile
+-rw-r--r-- 1 mshershe 2024_42campus     218 Mar 11 14:25 outfile
+-rw-r--r-- 1 mshershe 2024_42campus     218 Mar 11 14:26 out
+drwxr-xr-x 2 mshershe 2024_42campus    4096 Mar 11 15:10 src
+-rw-r--r-- 1 mshershe 2024_42campus    1087 Mar 11 15:11 Makefile
+-rw-r--r-- 1 mshershe 2024_42campus    2538 Mar 11 15:40 pipex_bonus.h
+drwxr-xr-x 2 mshershe 2024_42campus      82 Mar 11 16:03 obj
+drwxr-xr-x 3 mshershe 2024_42campus    4096 Mar 11 16:03 Libft
+-rwxr-xr-x 1 mshershe 2024_42campus 1327264 Mar 11 16:03 pipex
+drwxr-xr-x 6 mshershe 2024_42campus     188 Mar 11 16:04 .
+-rw-r--r-- 1 mshershe 2024_42campus     962 Mar 11 16:05 test

@@ -1,47 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   ft_dlist_help_3_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 10:00:45 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/11 15:10:39 by mshershe         ###   ########.fr       */
+/*   Created: 2025/02/07 21:33:37 by mshershe          #+#    #+#             */
+/*   Updated: 2025/03/11 15:24:42 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../pipex_bonus.h"
 
-size_t	ft_strlen_d(char **s)
+void	free_stack(t_dlist **stack)
 {
-	size_t	n;
+	t_dlist	*temp;
 
-	n = 0;
-	if (s == NULL || *s == NULL)
-		return (0);
-	while (s[n] != NULL)
-		n++;
-	return (n);
-}
-
-//need test
-//need fixing to just trim the needed
-char	*ft_strtrim_start(char const *s1, char const *set)
-{
-	int		t;
-	char	*ptr;
-	int		r;
-
-	r = 0;
-	t = ft_strlen(s1);
-	while (s1[r] && ft_strchr(set, s1[r]))
-		r++;
-	ptr = malloc(t - r + 1);
-	if (!ptr)
-		return (NULL);
-	ptr = ft_memcpy((void *)ptr, &s1[r], t - r);
-	ptr[t - r] = '\0';
-	return (ptr);
+	if (!stack || !(*stack))
+		return ;
+	*stack = get_head(*stack);
+	while (*stack != NULL)
+	{
+		ft_free((*stack)->cmd);
+		temp = (*stack)->next;
+		free (*stack);
+		*stack = temp;
+	}
+	*stack = NULL;
+	stack = NULL;
 }
 
 void	ft_free(char **matrix)
@@ -59,4 +45,21 @@ void	ft_free(char **matrix)
 		row++;
 	}
 	free (matrix);
+}
+
+//edit
+void	print_list(t_dlist *list) 
+{
+	//t_dlist *head = get_head (list);
+	t_dlist *head = list;
+	if (head == NULL)
+	{
+		printf("nill\n");
+		return;
+	}
+	while (head != NULL)
+	{
+		print_result(list->cmd);
+		head = head->next;
+	}
 }
