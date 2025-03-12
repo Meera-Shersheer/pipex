@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:32 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/12 10:37:40 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/12 10:48:28 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main(int argc, char **argv, char **envp)
 		if(cmd_list == NULL)
 			cmd_list = create_dlist(check_cmd_path(argv[i], envp));
 		else
-			cmd_list = add_last_dlist(cmd_list, check_cmd_path(argv[i], envp));
+			cmd_list = add_last_dlist(cmd_list, create_dlist(check_cmd_path(argv[i], envp)));
 		i++;
 	}
 

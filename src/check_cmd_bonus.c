@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:44:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/11 13:41:36 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/12 10:57:49 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../pipex_bonus.h"
 
-char **check_cmd_path(char *cmd_arg, char **envp)
+char **check_cmd_path(char *cmd_arg, char **envp)//work on the exit so it doesn't cause leaks
 {
 	char *path_env;
 	char *temp;
@@ -21,6 +21,7 @@ char **check_cmd_path(char *cmd_arg, char **envp)
 	path_env = NULL;
 	cmd = ft_split(cmd_arg, ' ');
 	if(cmd == NULL)
+		//exit_pipex();
 		exit_program(NULL, NULL, -1, -1);
 	if(ft_isalpha(cmd[0][0]) == 0) //given an absoulute path or a relative path
 	{
