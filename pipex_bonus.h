@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:39:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/12 10:50:51 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/12 12:44:09 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*check_cmd_exist(char **cmd, char *path_env);
 //pipex
 void	exit_pipex(t_dlist **list, int fd1, int fd2);
 void	print_result(char **result);
+void	exit_program(char **ptr1, char **ptr2, int fd1, int fd2);
 
 //execute_cmd
 void    exceute_cmd_in(char **cmd,t_dlist **list, char *infile, int *pipe_fd);

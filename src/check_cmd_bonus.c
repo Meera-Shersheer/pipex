@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:44:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/12 10:57:49 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/12 12:43:18 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char **check_cmd_path(char *cmd_arg, char **envp)//work on the exit so it doesn'
 	path_env = NULL;
 	cmd = ft_split(cmd_arg, ' ');
 	if(cmd == NULL)
-		//exit_pipex();
 		exit_program(NULL, NULL, -1, -1);
 	if(ft_isalpha(cmd[0][0]) == 0) //given an absoulute path or a relative path
 	{

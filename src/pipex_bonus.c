@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:32 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/12 10:48:28 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/12 12:44:58 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,20 @@ void	exit_pipex(t_dlist **list, int fd1, int fd2)
 {
 	if (list != NULL)
 		free_stack(list);
+	if (fd1 != -1)
+		close(fd1);
+	if (fd2 != -1)
+		close(fd2);
+	perror("Error");
+	exit(1);
+}
+
+void	exit_program(char **ptr1, char **ptr2, int fd1, int fd2)
+{
+	if (ptr1 != NULL)
+		ft_free(ptr1);
+	if (ptr2 != NULL)
+		ft_free(ptr2);
 	if (fd1 != -1)
 		close(fd1);
 	if (fd2 != -1)
