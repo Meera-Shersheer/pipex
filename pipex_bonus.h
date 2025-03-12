@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:39:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/11 15:40:07 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/12 10:39:47 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	exit_pipex(t_dlist **list, int fd1, int fd2);
 void	print_result(char **result);
 
 //execute_cmd
-void    exceute_cmd_in(char **args1, char **args2, char *infile, int *pipe_fd);
-void    exceute_cmd_out(char **args1, char **args2, char *outfile,int *pipe_fd);
-void pipex(char **args1, char **args2, char *infile, char *outfile);
-
+void    exceute_cmd_in(char **cmd,t_dlist **list, int infile, int *pipe_fd);
+void    exceute_cmd_out(char **cmd,t_dlist **list, char *outfile,int *pipe_fd);
+void    exceute_cmd(char **cmd,t_dlist **list,int *pipe_fd);
+void pipex_multi(t_dlist *list, char *infile, char *outfile);
 #endif

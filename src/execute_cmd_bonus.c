@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:00:34 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/12 08:52:14 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/12 10:33:37 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,33 +104,33 @@ void pipex_multi(t_dlist *list, char *infile, char *outfile)
 	}
 	
 }
+
 //pipe_fd[0]-> read side of the pipe ->> write data to the output
 //pipe_fd[1]-> write side of the pipe ->> read data from input
-void    exceute_cmd(char **cmd,t_dlist **list,int *pipe_fd) /// need modifying (didn't work on the body yet)
+void    exceute_cmd(char **cmd,t_dlist **list,int *pipe_fd)
 {
-    int fd;
     pid_t id;
 	int status;
+	int pipefd[2];
 
-	close(pipe_fd[0]);
-    fd = open(infile, O_RDONLY);
-    if (fd == -1)
-		exit_pipex(list, -1, pipe_fd[1]);
-	if (dup2(fd, STDIN_FILENO) == -1)
-		exit_pipex(list, fd, pipe_fd[1]);
+	if (pipe(pipefd) == -1)
+		exit_pipex(list, pipe_fd[0], pipe_fd[1]);
+	if (dup2(pipe_fd[0], STDIN_FILENO) == -1)
+		exit_pipex(list, pipe_fd[0], pipe_fd[1]);
 	if(dup2(pipe_fd[1], STDOUT_FILENO) == -1)
-		exit_pipex(list, fd, pipe_fd[1]);
+		exit_pipex(list, pipe_fd[0], pipe_fd[1]);
+
     id = fork();
 	if(id == -1)
-		exit_pipex(list, fd, pipe_fd[1]);
+		exit_pipex(list, pipe_fd[0], pipe_fd[1]);
     else if(id == 0)
         execve(cmd[0], cmd, NULL);
     else
 	{
 		waitpid(id, &status, 0);
 		if (WEXITSTATUS(status) != 0)
-			exit_pipex(list, fd, pipe_fd[1]);
+			exit_pipex(list, pipe_fd[0], pipe_fd[1]);
 	}
+	close(pipe_fd[0]);
 	close(pipe_fd[1]);
-	close(fd);
 }

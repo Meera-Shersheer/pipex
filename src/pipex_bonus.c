@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:32 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/11 15:39:59 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/12 10:37:40 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,10 @@
 
 int main(int argc, char **argv, char **envp)
 {
-	char **cmd1;
-	char **cmd2;
-	int pipefd[2];///need editing
 	int i;
 	t_dlist *cmd_list;
 	
 	i = 1;
-	cmd1 = NULL;
-	cmd2 = NULL;
 	cmd_list = NULL;
 	if (argc < 5)
 	{
@@ -30,7 +25,7 @@ int main(int argc, char **argv, char **envp)
 		exit(1);
 	}
 	if (access(argv[1], F_OK | R_OK) != 0)
-		exit_program(cmd1, cmd2, -1, -1);
+		exit_pipex(&cmd_list, -1, -1);
 		
 	// work through the envp and the split
 	//creat the list of commnds and check every command
@@ -48,15 +43,11 @@ int main(int argc, char **argv, char **envp)
 	if (access(argv[4], F_OK) != 0)
 		open(argv[4], O_CREAT , S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (access(argv[4], W_OK) != 0)
-		exit_program(cmd1, cmd2, -1, -1);
-
-	pipex(cmd1, cmd2, argv[1], argv[4]); ///need editing
-
+		exit_pipex(&cmd_list, -1, -1);
+	pipex_multi(cmd_list, argv[1], argv[4]);
 	
-	if (cmd1 != NULL)
-		ft_free(cmd1);
-	if (cmd2 != NULL)
-		ft_free(cmd2);	
+	if (cmd_list != NULL)
+		free_stack(&cmd_list);
 	// printf("success :) \n");
 	return 0;
 }
