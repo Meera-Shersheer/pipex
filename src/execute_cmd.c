@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:00:34 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/11 15:51:46 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/12 13:26:32 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    exceute_cmd_in(char **args1,char **args2, char *infile, int *pipe_fd)
 		exit_program(args1, args2, -1, pipe_fd[1]);	
 	if (dup2(fd, STDIN_FILENO) == -1)
 		exit_program(args1, args2, fd, pipe_fd[1]);
-	if(dup2(pipe_fd[1], STDOUT_FILENO) == -1)
+	if((dup2(pipe_fd[1], STDOUT_FILENO)) == -1)
 		exit_program(args1, args2, fd, pipe_fd[1]);
     id = fork();
 	if(id == -1)
@@ -52,7 +52,7 @@ void    exceute_cmd_out(char **args1, char **args2, char *outfile,int *pipe_fd)
 		exit_program(args1, args2, -1, pipe_fd[0]);	
 	if(dup2(fd, STDOUT_FILENO) == -1)
 		exit_program(args1, args2, fd, pipe_fd[0]);
-	if(dup2(pipe_fd[0], STDIN_FILENO)== -1)
+	if(dup2(pipe_fd[0], STDIN_FILENO) == -1)
 		exit_program(args1, args2, fd, pipe_fd[0]);
     id = fork();
 	if(id == -1)
@@ -78,8 +78,8 @@ void pipex(char **args1, char **args2, char *infile, char *outfile)
 	if (pipe(pipefd) == -1)
 		exit_program(args1, args2, -1, -1);
 	id = fork();
-	if(id == -1)
-		exit_program(args1, args2, -1, -1);
+	if(id == -1) //double sentences
+		exit_program(args1, args2, pipefd[0], pipefd[1]);
     else if(id == 0)
     {
 		exceute_cmd_in(args1,args2, infile, pipefd);
@@ -87,6 +87,8 @@ void pipex(char **args1, char **args2, char *infile, char *outfile)
     else
 	{
 		waitpid(id, &status, 0);
+		if (WEXITSTATUS(status) != 0)
+			exit_program(args1, args2, pipefd[1], pipefd[1]);
 		exceute_cmd_out(args2, args1, outfile, pipefd);
 	}
 	

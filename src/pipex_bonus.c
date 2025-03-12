@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:32 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/12 12:44:58 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:32:56 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int main(int argc, char **argv, char **envp)
 	int i;
 	t_dlist *cmd_list;
 	
-	i = 1;
+	i = 2;
 	cmd_list = NULL;
 	if (argc < 5)
 	{
@@ -40,11 +40,11 @@ int main(int argc, char **argv, char **envp)
 
 	//print_list(cmd_list);
 	
-	if (access(argv[4], F_OK) != 0)
-		open(argv[4], O_CREAT , S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	if (access(argv[4], W_OK) != 0)
+	if (access(argv[argc - 1], F_OK) != 0)
+		open(argv[argc - 1], O_CREAT , S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	if (access(argv[argc - 1], W_OK) != 0)
 		exit_pipex(&cmd_list, -1, -1);
-	pipex_multi(cmd_list, argv[1], argv[4]);
+	pipex_multi(cmd_list, argv[1], argv[argc - 1]);
 	
 	if (cmd_list != NULL)
 		free_stack(&cmd_list);

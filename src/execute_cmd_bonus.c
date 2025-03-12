@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:00:34 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/12 10:50:17 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:17:34 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,10 @@ void pipex_multi(t_dlist *list, char *infile, char *outfile)
     else if(id == 0)
     {
 		exceute_cmd_in(list->cmd ,&list, infile, pipefd);
+		if (WEXITSTATUS(status) != 0)
+			exit_pipex(&list, infile, outfile);
 		list = list->next;
-		while(n_pipes < 0)
+		while(n_pipes > 0)
 		{
 			exceute_cmd(list->cmd ,&list, pipefd);// new function the read from the pipe and write to it 
 			n_pipes--;
@@ -111,14 +113,14 @@ void    exceute_cmd(char **cmd,t_dlist **list,int *pipe_fd)
 {
     pid_t id;
 	int status;
-	int pipefd[2];
+//	int pipefd[2];
 
-	if (pipe(pipefd) == -1)
-		exit_pipex(list, pipe_fd[0], pipe_fd[1]);
-	if (dup2(pipe_fd[0], STDIN_FILENO) == -1)
-		exit_pipex(list, pipe_fd[0], pipe_fd[1]);
-	if(dup2(pipe_fd[1], STDOUT_FILENO) == -1)
-		exit_pipex(list, pipe_fd[0], pipe_fd[1]);
+	//if (pipe(pipefd) == -1)
+	//	exit_pipex(list, pipe_fd[0], pipe_fd[1]);
+	//if (dup2(pipe_fd[0], STDIN_FILENO) == -1)
+	//	exit_pipex(list, pipe_fd[0], pipe_fd[1]);
+//	if(dup2(pipe_fd[1], STDOUT_FILENO) == -1)
+	//	exit_pipex(list, pipe_fd[0], pipe_fd[1]);
 
     id = fork();
 	if(id == -1)

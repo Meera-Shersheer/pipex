@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:44:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/09 22:05:55 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/12 13:32:48 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ char	**get_directories(char *path_env)
 	char **dir;
 	char *path_var;
 
-	path_var = ft_strtrim_start(path_env, "PATH=");
+	path_var = ft_strtrim_start(path_env, "PATH=");//leaks
 	if(path_var == NULL)
 		exit_program(NULL, NULL, -1, -1);
-	dir = ft_split(path_var, ':');
+	dir = ft_split(path_var, ':');//leaks
 	if(path_var)
 		free(path_var);
 	if (dir == NULL)
@@ -76,14 +76,14 @@ char	*check_cmd_exist(char **cmd, char *path_env)
 	char *temp;
 	size_t i;
 
-	dir = get_directories(path_env);
+	dir = get_directories(path_env);//leaks
 	i = 0;
 	while (i < ft_strlen_d(dir))
 	{
-		temp = ft_strjoin(dir[i], "/");
+		temp = ft_strjoin(dir[i], "/");//leaks
 		if(temp == NULL)
 			exit_program(dir, NULL, -1, -1);
-		path = ft_strjoin(temp, cmd[0]);
+		path = ft_strjoin(temp, cmd[0]);//leaks
 		if(temp)
 			free(temp);
 		if(path == NULL)
