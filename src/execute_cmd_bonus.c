@@ -6,133 +6,85 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:00:34 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/12 16:17:34 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 01:34:04 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex_bonus.h"
-//enter data to pipe -> writes the pipe
-//the input of the pipe is taken from the infile 
-void    exceute_cmd_in(char **cmd,t_dlist **list, char *infile, int *pipe_fd)
+
+void	set_fds(t_dlist *list, int (*fd)[2], char *infile, char *outfile)
 {
-    int fd;
-    pid_t id;
-	int status;
+	int j;
 
-	close(pipe_fd[0]);
-    fd = open(infile, O_RDONLY);
-    if (fd == -1)
-		exit_pipex(list, -1, pipe_fd[1]);
-	if (dup2(fd, STDIN_FILENO) == -1)
-		exit_pipex(list, fd, pipe_fd[1]);
-	if(dup2(pipe_fd[1], STDOUT_FILENO) == -1)
-		exit_pipex(list, fd, pipe_fd[1]);
-    id = fork();
-	if(id == -1)
-		exit_pipex(list, fd, pipe_fd[1]);
-    else if(id == 0)
-        execve(cmd[0], cmd, NULL);
-    else
+	j = get_index(get_head(list), list);
+	if(list->pre == NULL)
 	{
-		waitpid(id, &status, 0);
-		if (WEXITSTATUS(status) != 0)
-			exit_pipex(list, fd, pipe_fd[1]);
+		fd[j][0] = open(infile, O_RDONLY);
+		if (fd[j][0] == -1)
+			exit_pipes(&list, fd, dlistsize(list) - 1 , 1);
 	}
-	close(pipe_fd[1]);
-	close(fd);
-}
-
-//take data from the pipe -> read from the pipe
-//the output of the pipe is written to the outfile
-void    exceute_cmd_out(char **cmd,t_dlist **list, char *outfile,int *pipe_fd)
-{
-    int fd;
-    pid_t id;
-	int status;
-
-	close(pipe_fd[1]);
-    fd = open(outfile, O_WRONLY);
-    if (fd == -1)
-		exit_pipex(list, -1, pipe_fd[0]);	
-	if(dup2(fd, STDOUT_FILENO) == -1)
-		exit_pipex(list, fd, pipe_fd[0]);
-	if(dup2(pipe_fd[0], STDIN_FILENO)== -1)
-		exit_pipex(list, fd, pipe_fd[0]);
-    id = fork();
-	if(id == -1)
-		exit_pipex(list, fd, pipe_fd[0]);
-    else if(id == 0)
-        execve(cmd[0], cmd, NULL);
-    else
+	if(list->next == NULL)
 	{
-		waitpid(id, &status, 0);
-		if (WEXITSTATUS(status) != 0)
-			exit_pipex(list, fd, pipe_fd[1]);
+		fd[j + 1][1] = open(outfile, O_WRONLY);
+		if (fd[j + 1][1] == -1)
+			exit_pipes(&list, fd, dlistsize(list) - 1 , 1);
 	}
-	close(pipe_fd[0]);
-	close(fd);
+	if(dup2(fd[j][0], STDIN_FILENO) == -1)
+				exit_pipes(&list,fd, dlistsize(list) - 1 , 1);
+	if(dup2(fd[j + 1][1], STDOUT_FILENO) == -1)
+				exit_pipes(&list, fd, dlistsize(list) - 1 , 1);
 }
 
 void pipex_multi(t_dlist *list, char *infile, char *outfile)
-{	
-	pid_t id;
-	int n_pipes;
+{
+	int fd[dlistsize(list)][2];
+	int id;
+	int j;
 	int status;
-	int pipefd[2];
-	
-	if (pipe(pipefd) == -1)
-		exit_pipex(&list, -1, -1);
-	n_pipes = dlistsize(list);
-	id = fork();
-	if(id == -1)
-		exit_pipex(&list, -1, -1);
-    else if(id == 0)
-    {
-		exceute_cmd_in(list->cmd ,&list, infile, pipefd);
-		if (WEXITSTATUS(status) != 0)
-			exit_pipex(&list, infile, outfile);
-		list = list->next;
-		while(n_pipes > 0)
+
+	set_pipes(list, fd);
+	while (list)
+	{
+		j = get_index(get_head(list), list);
+		id = fork();
+		if(id == -1)
+			exit_pipes(&list, fd, dlistsize(list) - 1 , 1);
+		else if (id == 0)
+			child_process(list, fd, infile, outfile);
+		else
 		{
-			exceute_cmd(list->cmd ,&list, pipefd);// new function the read from the pipe and write to it 
-			n_pipes--;
+			waitpid(id, &status, 0);
+			if (WEXITSTATUS(status))
+				exit_pipes(&list, fd, dlistsize(list) - 1 , 1);
+			close (fd[j][0]);
+			if (j < dlistsize(list) - 1)
+				close (fd[j + 1][1]);
 			list = list->next;
 		}
-	}   
-    else
-	{
-		waitpid(id, &status, 0);
-		exceute_cmd_out(list->cmd ,&list, outfile, pipefd);
 	}
-	
 }
 
-//pipe_fd[0]-> read side of the pipe ->> write data to the output
-//pipe_fd[1]-> write side of the pipe ->> read data from input
-void    exceute_cmd(char **cmd,t_dlist **list,int *pipe_fd)
+void set_pipes(t_dlist *list,  int (*fd)[2])
 {
-    pid_t id;
-	int status;
-//	int pipefd[2];
-
-	//if (pipe(pipefd) == -1)
-	//	exit_pipex(list, pipe_fd[0], pipe_fd[1]);
-	//if (dup2(pipe_fd[0], STDIN_FILENO) == -1)
-	//	exit_pipex(list, pipe_fd[0], pipe_fd[1]);
-//	if(dup2(pipe_fd[1], STDOUT_FILENO) == -1)
-	//	exit_pipex(list, pipe_fd[0], pipe_fd[1]);
-
-    id = fork();
-	if(id == -1)
-		exit_pipex(list, pipe_fd[0], pipe_fd[1]);
-    else if(id == 0)
-        execve(cmd[0], cmd, NULL);
-    else
+	int i;
+	
+	i = 0;
+	while(i < dlistsize(list))
 	{
-		waitpid(id, &status, 0);
-		if (WEXITSTATUS(status) != 0)
-			exit_pipex(list, pipe_fd[0], pipe_fd[1]);
+		if(pipe(fd[i]) == -1)
+			exit_pipes(&list, fd, dlistsize(list) - 1 , 1);
+		i++;
 	}
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
 }
+
+void	child_process(t_dlist *list, int (*fd)[2], char *infile, char *outfile)
+{
+	int j;
+	
+	j = get_index(get_head(list), list);
+	close_unused( fd, dlistsize(list) - 1, j);
+	set_fds(list, fd, infile, outfile);
+	execve(list->cmd[0],list->cmd,NULL);
+	exit_pipes(&list,fd, dlistsize(list) - 1 , 1);
+}
+

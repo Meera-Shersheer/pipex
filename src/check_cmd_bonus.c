@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:44:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/12 12:43:18 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 01:10:29 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ char **check_cmd_path(char *cmd_arg, char **envp)//work on the exit so it doesn'
 	path_env = NULL;
 	cmd = ft_split(cmd_arg, ' ');
 	if(cmd == NULL)
-		exit_program(NULL, NULL, -1, -1);
+		exit_pipex(NULL, NULL);
 	if(ft_isalpha(cmd[0][0]) == 0) //given an absoulute path or a relative path
 	{
 		if (access(cmd[0], F_OK | X_OK) != 0)
-			exit_program(cmd, NULL, -1, -1);
+			exit_pipex(NULL, cmd);
 	}
 	else // giving only the command name -> try different dirs to see if exists
 	{
@@ -60,12 +60,12 @@ char	**get_directories(char *path_env)
 
 	path_var = ft_strtrim_start(path_env, "PATH=");
 	if(path_var == NULL)
-		exit_program(NULL, NULL, -1, -1);
+		exit_pipex(NULL, NULL);
 	dir = ft_split(path_var, ':');
 	if(path_var)
 		free(path_var);
 	if (dir == NULL)
-		exit_program(NULL, NULL, -1, -1);
+		exit_pipex(NULL, NULL);
 	return (dir);
 }
 
@@ -82,12 +82,12 @@ char	*check_cmd_exist(char **cmd, char *path_env)
 	{
 		temp = ft_strjoin(dir[i], "/");
 		if(temp == NULL)
-			exit_program(dir, NULL, -1, -1);
+			exit_pipex(NULL, dir);
 		path = ft_strjoin(temp, cmd[0]);
 		if(temp)
 			free(temp);
 		if(path == NULL)
-			exit_program(dir, NULL, -1, -1);
+			exit_pipex(NULL, dir);
 		if (access(path, F_OK | X_OK) == 0)
 			return(ft_free(dir), path);
 		free(path);

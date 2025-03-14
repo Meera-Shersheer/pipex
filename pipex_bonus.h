@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:39:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/12 12:44:09 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 01:33:48 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,17 @@ char	**get_directories(char *path_env);
 char	*check_cmd_exist(char **cmd, char *path_env);
 
 //pipex
-void	exit_pipex(t_dlist **list, int fd1, int fd2);
+void	exit_pipex(t_dlist **list, char **ptr);
 void	print_result(char **result);
-void	exit_program(char **ptr1, char **ptr2, int fd1, int fd2);
 
 //execute_cmd
-void    exceute_cmd_in(char **cmd,t_dlist **list, char *infile, int *pipe_fd);
-void    exceute_cmd_out(char **cmd,t_dlist **list, char *outfile,int *pipe_fd);
-void    exceute_cmd(char **cmd,t_dlist **list,int *pipe_fd);
+void	set_fds(t_dlist *list, int (*fd)[2], char *infile, char *outfile);
 void pipex_multi(t_dlist *list, char *infile, char *outfile);
+void set_pipes(t_dlist *list,  int (*fd)[2]);
+void	child_process(t_dlist *list, int (*fd)[2], char *infile, char *outfile);
+
+//cleanup
+void	exit_pipes(t_dlist **list, int (*fd)[2], int i, int j);
+void close_unused( int (*fd)[2],int i, int j);
+void	exit_pipex(t_dlist **list, char **ptr);
 #endif

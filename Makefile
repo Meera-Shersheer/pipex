@@ -1,6 +1,6 @@
 SRC= pipex_utils.c pipex.c check_cmd.c execute_cmd.c 
 BNS= pipex_utils_bonus.c pipex_bonus.c check_cmd_bonus.c execute_cmd_bonus.c ft_dlist_help_1_bonus.c\
-ft_dlist_help_2_bonus.c ft_dlist_help_3_bonus.c
+ft_dlist_help_2_bonus.c ft_dlist_help_3_bonus.c clean_up_bonus.c 
 
 NAME = pipex
 BNS_NAME = pipex
