@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:32 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 02:03:56 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 03:27:36 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int main(int argc, char **argv, char **envp)
 	
 	i = 2;
 	cmd_list = NULL;
-	if (argc != 5)
+	if (argc < 5)
 		wrong_n_arguments(argc);
 	if (access(argv[1], F_OK | R_OK) != 0)
 		exit_pipex(&cmd_list, NULL);

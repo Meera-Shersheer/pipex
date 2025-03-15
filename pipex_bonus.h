@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:39:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 03:20:24 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 05:39:32 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	set_fds(t_dlist *list, int (*fd)[2], char *infile, char *outfile);
 void pipex_multi(t_dlist *list, char *infile, char *outfile);
 void set_pipes(t_dlist *list,  int (*fd)[2]);
 void	child_process(t_dlist *list, int (*fd)[2], char *infile, char *outfile);
-
+int check_emptyfile(char *infile, t_dlist *list, int (*fd)[2],int j);
 //cleanup
 void	exit_pipes(t_dlist **list, int (*fd)[2], int i, int j);
 void close_unused( int (*fd)[2],int i, int j);
