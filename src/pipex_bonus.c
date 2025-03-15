@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:32 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 03:27:36 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 22:20:34 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,24 @@
 int main(int argc, char **argv, char **envp)
 {
 	int i;
+	int len;
 	t_dlist *cmd_list;
 	
 	i = 2;
 	cmd_list = NULL;
 	if (argc < 5)
 		wrong_n_arguments(argc);
-	if (access(argv[1], F_OK | R_OK) != 0)
+		
+	if(ft_strlen(argv[1]) > ft_strlen("here_doc"))
+		len = ft_strlen(argv[1]);
+	else
+		len = ft_strlen("here_doc");
+	if (ft_strncmp(argv[1], "here_doc", len) == 0)
+	{
+			here_doc(argv[2]);
+			i = 3;	
+	}
+	else if (access(argv[1], F_OK | R_OK) != 0)
 		exit_pipex(&cmd_list, NULL);
 	while (i < (argc - 1))
 	{
@@ -49,6 +60,15 @@ void wrong_n_arguments(int n_arg)
 		ft_printf("Error, the number of arguments is less than expected\n");
 	exit(1);
 }
+
+
+
+
+
+
+
+
+
 
 /*
 void	print_result(char **result)

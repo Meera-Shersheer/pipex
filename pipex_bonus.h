@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:39:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 05:39:32 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 22:24:03 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,9 @@ void	exit_pipes(t_dlist **list, int (*fd)[2], int i, int j);
 void close_unused( int (*fd)[2],int i, int j);
 void	exit_pipex(t_dlist **list, char **ptr);
 void	exit_program_leak(char **ptr1, char **ptr2, int fd1, int fd2);
+
+//heredoc
+void here_doc(char *limiter);
+void read_stdin(int *fd, char *limiter);
+
 #endif
