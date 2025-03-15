@@ -14,7 +14,7 @@ OBJ_BNS = $(addprefix $(OBJECTDIR)/, $(BNS:.c=.o))
 
 all: $(NAME)
 
-$(NAME): | $(OBJ_SRC)
+$(NAME): $(OBJ_SRC)
 	ar rcs $(NAME) $(OBJ_SRC)
 
 
@@ -22,7 +22,7 @@ $(OBJECTDIR)/%.o: %.c
 	@mkdir -p $(OBJECTDIR) 
 	$(CC) $(CFLAGS) -c $< -o $@
 
-bonus:  $(NAME) $(OBJ_BNS)
+bonus: $(OBJ_SRC) $(OBJ_BNS)
 	ar rcs $(NAME) $(OBJ_SRC) $(OBJ_BNS)
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:00:34 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 05:41:14 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 19:45:12 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	set_fds(t_dlist *list, int (*fd)[2], char *infile, char *outfile)
 		fd[j][0] = check_emptyfile(infile, list, fd, j);
 	if(list->next == NULL)
 	{
-		fd[j + 1][1] = open(outfile, O_WRONLY);
+		fd[j + 1][1] = open(outfile, O_WRONLY | O_TRUNC);
 		if (fd[j + 1][1] == -1)
 			exit_pipes(&list, fd, dlistsize(list) - 1 , 1);
 	}
@@ -42,6 +42,13 @@ int check_emptyfile(char *infile, t_dlist *list, int (*fd)[2],int j)
 	{
 		close(fd[j][0]);
 		fd[j][0] = open("/dev/null", O_RDONLY); 
+		if (fd[j][0] == -1)
+			exit_pipes(&list, fd, dlistsize(list) - 1 , 1);
+	}
+	else
+	{
+		close(fd[j][0]);
+		fd[j][0] = open(infile, O_RDONLY);
 		if (fd[j][0] == -1)
 			exit_pipes(&list, fd, dlistsize(list) - 1 , 1);
 	}

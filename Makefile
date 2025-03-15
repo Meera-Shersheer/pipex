@@ -11,12 +11,12 @@ CFLAGS= -Wall -Wextra -Werror -g3
 
 LFTDIR := ./Libft
 
+
 SRC_DIR := src
 OBJ_DIR := obj
 
 SRC_PATH = $(addprefix $(SRC_DIR)/, $(SRC))
 BNS_PATH = $(addprefix $(SRC_DIR)/, $(BNS))
-
 
 OBJ_SRC = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_PATH))
 OBJ_BNS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(BNS_PATH))
@@ -47,4 +47,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re libft bonus  
+.PHONY: all clean fclean re libft bonus 

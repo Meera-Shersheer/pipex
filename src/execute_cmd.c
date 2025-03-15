@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:00:34 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 05:41:45 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 19:45:46 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,14 @@ int check_emptyfile(char *infile, char **args1,char **args2, int *pipe_fd)
 		fd = open("/dev/null", O_RDONLY); 
 		if (fd == -1)
 			exit_program(args1, args2, -1, pipe_fd[1]);
+	}
+	else
+	{
+		close(fd);
+		fd = open(infile, O_RDONLY);
+		if (fd == -1)
+			exit_program(args1, args2, -1, pipe_fd[1]);
+		
 	}
 	return (fd);
 }
