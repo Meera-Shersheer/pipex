@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:32 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/12 13:11:29 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 03:01:27 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ int main(int argc, char **argv, char **envp)
 	cmd1 = NULL;
 	cmd2 = NULL;
 	if (argc != 5)
-	{
-		ft_printf("Error, the number of arguments is not correct\n");
-		exit(1);
-	}
+		wrong_n_arguments(argc);
 	if (access(argv[1], F_OK | R_OK) != 0)
 		exit_program(cmd1, cmd2, -1, -1);
 	cmd1 = check_cmd_path(argv[2], envp);
@@ -43,6 +40,15 @@ int main(int argc, char **argv, char **envp)
 	return 0;
 }
 
+void wrong_n_arguments(int n_arg)
+{
+	if(n_arg > 5)
+		ft_printf("Error, too many arguments\n");
+	else
+		ft_printf("Error, the number of arguments is less than expected\n");
+	exit(1);
+}
+
 void	exit_program(char **ptr1, char **ptr2, int fd1, int fd2)
 {
 	if (ptr1 != NULL)
@@ -56,19 +62,35 @@ void	exit_program(char **ptr1, char **ptr2, int fd1, int fd2)
 	perror("Error");
 	exit(1);
 }
-
+void	exit_program_leak(char **ptr1, char **ptr2, int fd1, int fd2)
+{
+	if (ptr1 != NULL)
+		ft_free(ptr1);
+	if (ptr2 != NULL)
+		ft_free(ptr2);
+	if (fd1 != -1)
+		close(fd1);
+	if (fd2 != -1)
+		close(fd2);
+	if (fd2 == -2)
+		ft_printf("Error: command not found\n");
+	else
+		ft_printf("Error: program couldn't proceed\n");
+	exit(1);
+}
+/*
 void	print_result(char **result)
 {
-	printf("result: ");
+	ft_printf("result: ");
 	if (result == NULL)
 	{
-		printf("NULL\n");
+		ft_printf("NULL\n");
 		return ;
 	}
-	//test
 	for (int i = 0; result[i]; i++)
 	{
-		printf("\"%s\" ", result[i]);
+		ft_printf("\"%s\" ", result[i]);
 	}
-	printf("\n");
+	ft_printf("\n");
 }
+*/

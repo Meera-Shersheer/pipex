@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:39:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 01:33:48 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 03:20:24 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	dlistsize(t_dlist *lst);
 //ft_dlist_functions3
 void	free_stack(t_dlist **stack);
 void	ft_free(char **matrix);
-void	print_list(t_dlist *list); //for later removal
+/*void	print_list(t_dlist *list);*/ //for later removal
 //utils
 size_t	ft_strlen_d(char **s);
 char	*ft_strtrim_start(char const *s1, char const *set);
@@ -56,13 +56,13 @@ char	*ft_strtrim_start(char const *s1, char const *set);
 //check_cmd
 char **check_cmd_path(char *cmd_arg, char **envp);
 char	*get_env_path(char **envp);
-char	**get_directories(char *path_env);
+char	**get_directories(char **cmd, char *path_env);
 char	*check_cmd_exist(char **cmd, char *path_env);
 
 //pipex
 void	exit_pipex(t_dlist **list, char **ptr);
-void	print_result(char **result);
-
+/*void	print_result(char **result);*/
+void wrong_n_arguments(int n_arg);
 //execute_cmd
 void	set_fds(t_dlist *list, int (*fd)[2], char *infile, char *outfile);
 void pipex_multi(t_dlist *list, char *infile, char *outfile);
@@ -73,4 +73,5 @@ void	child_process(t_dlist *list, int (*fd)[2], char *infile, char *outfile);
 void	exit_pipes(t_dlist **list, int (*fd)[2], int i, int j);
 void close_unused( int (*fd)[2],int i, int j);
 void	exit_pipex(t_dlist **list, char **ptr);
+void	exit_program_leak(char **ptr1, char **ptr2, int fd1, int fd2);
 #endif

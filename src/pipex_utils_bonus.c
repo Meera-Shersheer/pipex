@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:45 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/12 10:55:28 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 03:17:35 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ char	*ft_strtrim_start(char const *s1, char const *set)
 	ptr = malloc(t - r + 1);
 	if (!ptr)
 		return (NULL);
-	ptr = ft_memcpy((void *)ptr, &s1[r], t - r);
+	ft_memcpy((void *)ptr, &s1[r], t - r);
+	if (!ptr)
+		return (NULL);
 	ptr[t - r] = '\0';
 	return (ptr);
 }

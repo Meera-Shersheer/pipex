@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:58:46 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 01:27:39 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 03:15:08 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,21 @@ void	exit_pipex(t_dlist **list, char **ptr)
 	if (ptr != NULL)
 		ft_free(ptr);
 	perror("Error");
+	exit(1);
+}
+void	exit_program_leak(char **ptr1, char **ptr2, int fd1, int fd2)
+{
+	if (ptr1 != NULL)
+		ft_free(ptr1);
+	if (ptr2 != NULL)
+		ft_free(ptr2);
+	if (fd1 != -1)
+		close(fd1);
+	if (fd2 != -1)
+		close(fd2);
+	if (fd2 == -2)
+		ft_printf("Error: command not found\n");
+	else
+		ft_printf("Error: program couldn't proceed\n");
 	exit(1);
 }

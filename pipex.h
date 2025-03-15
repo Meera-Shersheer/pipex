@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:39:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/09 22:32:39 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 02:16:58 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ void	ft_free(char **matrix);
 //check_cmd
 char **check_cmd_path(char *cmd_arg, char **envp);
 char	*get_env_path(char **envp);
-char	**get_directories(char *path_env);
+char	**get_directories(char **cmd, char *path_env);
 char	*check_cmd_exist(char **cmd, char *path_env);
 
 //pipex
 void exit_program(char **ptr1, char **ptr2, int fd1, int fd2);
-void	print_result(char **result);
-
+void	exit_program_leak(char **ptr1, char **ptr2, int fd1, int fd2);
+/*void	print_result(char **result);*/
+void wrong_n_arguments(int n_arg);
 //execute_cmd
 void    exceute_cmd_in(char **args1, char **args2, char *infile, int *pipe_fd);
 void    exceute_cmd_out(char **args1, char **args2, char *outfile,int *pipe_fd);

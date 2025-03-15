@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:00:34 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/12 13:26:32 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 03:18:30 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,4 @@ void pipex(char **args1, char **args2, char *infile, char *outfile)
 			exit_program(args1, args2, pipefd[1], pipefd[1]);
 		exceute_cmd_out(args2, args1, outfile, pipefd);
 	}
-	
 }

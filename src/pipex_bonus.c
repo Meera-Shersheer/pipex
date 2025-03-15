@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:32 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 01:10:41 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 02:03:56 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,8 @@ int main(int argc, char **argv, char **envp)
 	
 	i = 2;
 	cmd_list = NULL;
-	if (argc < 5)
-	{
-		ft_printf("Error, the number of arguments is less than expected\n");
-		exit(1);
-	}
+	if (argc != 5)
+		wrong_n_arguments(argc);
 	if (access(argv[1], F_OK | R_OK) != 0)
 		exit_pipex(&cmd_list, NULL);
 	while (i < (argc - 1))
@@ -44,20 +41,28 @@ int main(int argc, char **argv, char **envp)
 	return 0;
 }
 
+void wrong_n_arguments(int n_arg)
+{
+	if(n_arg > 5)
+		ft_printf("Error, too many arguments\n");
+	else
+		ft_printf("Error, the number of arguments is less than expected\n");
+	exit(1);
+}
 
-
-
+/*
 void	print_result(char **result)
 {
-	printf("result: ");
+	ft_printf("result: ");
 	if (result == NULL)
 	{
-		printf("NULL\n");
+		ft_printf("NULL\n");
 		return ;
 	}
 	for (int i = 0; result[i]; i++)
 	{
-		printf("\"%s\" ", result[i]);
+		ft_printf("\"%s\" ", result[i]);
 	}
-	printf("\n");
+	ft_printf("\n");
 }
+*/

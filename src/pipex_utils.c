@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:45 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/12 13:13:28 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 03:17:22 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ size_t	ft_strlen_d(char **s)
 	return (n);
 }
 
-//need test
-//need fixing to just trim the needed
 char	*ft_strtrim_start(char const *s1, char const *set)
 {
 	int		t;
@@ -36,10 +34,10 @@ char	*ft_strtrim_start(char const *s1, char const *set)
 	t = ft_strlen(s1);
 	while (s1[r] && ft_strchr(set, s1[r]))
 		r++;
-	ptr = malloc(t - r + 1);//leaks
+	ptr = malloc(t - r + 1);
 	if (!ptr)
 		return (NULL);
-	ptr = ft_memcpy((void *)ptr, &s1[r], t - r);//leaks
+	ft_memcpy((void *)ptr, &s1[r], t - r);
 	if (!ptr)
 		return (NULL);
 	ptr[t - r] = '\0';

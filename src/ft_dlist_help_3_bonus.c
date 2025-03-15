@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dlist_help_3_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 21:33:37 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/11 15:24:42 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/15 02:10:15 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_free(char **matrix)
 	free (matrix);
 }
 
-//edit
+/*
 void	print_list(t_dlist *list) 
 {
 	//t_dlist *head = get_head (list);
@@ -63,3 +63,4 @@ void	print_list(t_dlist *list)
 		head = head->next;
 	}
 }
+	*/
