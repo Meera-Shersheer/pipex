@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:32 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/18 07:32:37 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/18 07:38:00 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ int main(int argc, char **argv, char **envp)
 			pipex_multi(cmd_list, argv[1], argv[argc - 1]);
 	if (cmd_list != NULL)
 		free_stack(&cmd_list);
-	//unlink(temp_file); //cause errors
-	//close (temp_file);
+	//close (temp_file); //close it
 	return 0;
 }
 
