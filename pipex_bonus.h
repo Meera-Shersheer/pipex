@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:39:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 22:24:03 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/18 05:55:51 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ void	exit_pipex(t_dlist **list, char **ptr);
 void	exit_program_leak(char **ptr1, char **ptr2, int fd1, int fd2);
 
 //heredoc
-void here_doc(char *limiter);
-void read_stdin(int *fd, char *limiter);
-
+char *here_doc(char *limiter, t_dlist *list, char *outfile);
+char *read_stdin(int *fd, char *limiter);
+void check_rest(t_dlist **list, int argc, char **argv, char **envp);
+void	child_process_here(t_dlist *list, int (*fd)[2],char *outfile);
+void	set_fds_here(t_dlist *list, int (*fd)[2],char *outfile);
 #endif

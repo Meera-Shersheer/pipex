@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:32 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 22:20:34 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/18 06:31:55 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int main(int argc, char **argv, char **envp)
 	int i;
 	int len;
 	t_dlist *cmd_list;
+	char *infile;
 	
 	i = 2;
 	cmd_list = NULL;
@@ -29,26 +30,36 @@ int main(int argc, char **argv, char **envp)
 		len = ft_strlen("here_doc");
 	if (ft_strncmp(argv[1], "here_doc", len) == 0)
 	{
-			here_doc(argv[2]);
-			i = 3;	
+		i = 3;
+		check_rest(&cmd_list, argc, argv, envp);
+		infile = here_doc(argv[2], cmd_list, argv[argc - 1]);
+		(void)infile;			
 	}
-	else if (access(argv[1], F_OK | R_OK) != 0)
-		exit_pipex(&cmd_list, NULL);
-	while (i < (argc - 1))
+	else
 	{
-		if(cmd_list == NULL)
-			cmd_list = create_dlist(check_cmd_path(argv[i], envp));
-		else
-			cmd_list = add_last_dlist(cmd_list, create_dlist(check_cmd_path(argv[i], envp)));
-		i++;
+		if (access(argv[1], F_OK | R_OK) != 0)
+			exit_pipex(&cmd_list, NULL);
+		
 	}
-	if (access(argv[argc - 1], F_OK) != 0)
-		open(argv[argc - 1], O_CREAT , S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	if (access(argv[argc - 1], W_OK) != 0)
-		exit_pipex(&cmd_list, NULL);
-	pipex_multi(cmd_list, argv[1], argv[argc - 1]);
+	while (i < (argc - 1))
+		{
+			if(cmd_list == NULL)
+				cmd_list = create_dlist(check_cmd_path(argv[i], envp));
+			else
+				cmd_list = add_last_dlist(cmd_list, create_dlist(check_cmd_path(argv[i], envp)));
+			i++;
+		}
+		if (access(argv[argc - 1], F_OK) != 0)
+			open(argv[argc - 1], O_CREAT , S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		if (access(argv[argc - 1], W_OK) != 0)
+			exit_pipex(&cmd_list, NULL);
+		if(ft_strncmp(argv[1], "here_doc", len) == 0) 
+			pipex_multi(cmd_list,"infile", argv[argc - 1]);
+		else
+			pipex_multi(cmd_list, argv[1], argv[argc - 1]);
 	if (cmd_list != NULL)
 		free_stack(&cmd_list);
+	//unlink("infile"); cause errors
 	return 0;
 }
 

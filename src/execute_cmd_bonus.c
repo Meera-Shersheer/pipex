@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:00:34 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 19:45:12 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/18 04:58:16 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	set_fds(t_dlist *list, int (*fd)[2], char *infile, char *outfile)
 
 	j = get_index(get_head(list), list);
 	if(list->pre == NULL)
-		fd[j][0] = check_emptyfile(infile, list, fd, j);
+		fd[j][0] = check_emptyfile(infile, list, fd, j); 
 	if(list->next == NULL)
 	{
 		fd[j + 1][1] = open(outfile, O_WRONLY | O_TRUNC);
