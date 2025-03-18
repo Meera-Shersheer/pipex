@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:32 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/18 12:13:02 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:53:04 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int main(int argc, char **argv, char **envp)
 	if (argc != 5)
 		wrong_n_arguments(argc);
 	if (access(argv[1], F_OK | R_OK) != 0)
-		exit_program(cmd1, cmd2, -1, -1);
+		perror("Error: ");
+		//exit_program(cmd1, cmd2, -1, -1);
 	cmd1 = check_cmd_path(argv[2], envp);
 	cmd2 = check_cmd_path(argv[3], envp);
 	if (access(argv[4], F_OK) != 0)

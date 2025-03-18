@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:44:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 03:02:58 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:57:47 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char **check_cmd_path(char *cmd_arg, char **envp)
 	if(ft_isalpha(cmd[0][0]) == 0)
 	{
 		if (access(cmd[0], F_OK | X_OK) != 0)
-			exit_program(cmd, NULL, -1, -1);
+			perror("Error: ");
+			//exit_program(cmd, NULL, -1, -1);
 	}
 	else
 	{
@@ -95,5 +96,7 @@ char	*check_cmd_exist(char **cmd, char *path_env)
 		free(path);
 		i++;
 	}
-	return (exit_program_leak(cmd, dir, -1, -2), NULL);
+	
+	perror("Error: ");
+	return ( NULL);
 }
