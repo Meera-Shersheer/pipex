@@ -6,23 +6,23 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:44:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/19 02:08:44 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/19 02:31:23 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-char **check_cmd_path(char *cmd_arg, char **envp)
+char	**check_cmd_path(char *cmd_arg, char **envp)
 {
-	char *path_env;
-	char *temp;
-	char **cmd;
-	
+	char		*path_env;
+	char		*temp;
+	char		**cmd;
+
 	path_env = NULL;
 	cmd = ft_split(cmd_arg, ' ');
-	if(cmd == NULL)
+	if (cmd == NULL)
 		exit_program_leak(NULL, NULL, -1, -1);
-	if(ft_isalpha(cmd[0][0]) == 0)
+	if (ft_isalpha(cmd[0][0]) == 0)
 	{
 		if (access(cmd[0], F_OK | X_OK) != 0)
 			ft_printf("Error: %s: %s\n", cmd[0], strerror(errno));
@@ -39,14 +39,14 @@ char **check_cmd_path(char *cmd_arg, char **envp)
 
 char	*get_env_path(char **envp)
 {
-	int i;
-	int list;
+	int	i;
+	int	list;
 
 	i = 0;
 	list = ft_strlen_d(envp);
 	while (i < list)
 	{
-		if(ft_strncmp( envp[i], "PATH" , 4) == 0 )
+		if (ft_strncmp(envp[i], "PATH", 4) == 0)
 			return (envp[i]);
 		i++;
 	}
@@ -55,14 +55,14 @@ char	*get_env_path(char **envp)
 
 char	**get_directories(char **cmd, char *path_env)
 {
-	char **dir;
-	char *path_var;
+	char		**dir;
+	char		*path_var;
 
 	path_var = ft_strtrim_start(path_env, "PATH=");
-	if(path_var == NULL)
+	if (path_var == NULL)
 		exit_program_leak(cmd, NULL, -1, -1);
 	dir = ft_split(path_var, ':');
-	if(path_var)
+	if (path_var)
 		free(path_var);
 	if (dir == NULL)
 		exit_program_leak(cmd, NULL, -1, -1);
@@ -71,29 +71,29 @@ char	**get_directories(char **cmd, char *path_env)
 
 char	*check_cmd_exist(char **cmd, char *path_env)
 {
-	char **dir;
-	char *path;
-	char *temp;
-	size_t i;
+	char		**dir;
+	char		*path;
+	char		*temp;
+	size_t		i;
 
 	dir = get_directories(cmd, path_env);
-	if(dir == NULL)
+	if (dir == NULL)
 		exit_program_leak(cmd, NULL, -1, -1);
 	i = 0;
 	while (i < ft_strlen_d(dir))
 	{
 		temp = ft_strjoin(dir[i++], "/");
-		if(temp == NULL)
+		if (temp == NULL)
 			exit_program_leak(cmd, dir, -1, -1);
 		path = ft_strjoin(temp, cmd[0]);
-		if(temp)
+		if (temp)
 			free(temp);
-		if(path == NULL)
+		if (path == NULL)
 			exit_program_leak(cmd, dir, -1, -1);
 		if (access(path, F_OK | X_OK) == 0)
-			return(ft_free(dir), path);
+			return (ft_free(dir), path);
 		free(path);
 	}
 	ft_printf("Error: Command %s not found\n", cmd[0]);
-	return ( NULL);
+	return (NULL);
 }
