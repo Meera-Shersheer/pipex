@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:32 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 03:37:32 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/18 12:13:02 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	exit_program(char **ptr1, char **ptr2, int fd1, int fd2)
 	if (fd2 != -1)
 		close(fd2);
 	perror("Error");
-	exit(1);
+	exit(errno);
 }
 void	exit_program_leak(char **ptr1, char **ptr2, int fd1, int fd2)
 {
@@ -76,7 +76,7 @@ void	exit_program_leak(char **ptr1, char **ptr2, int fd1, int fd2)
 		ft_printf("Error: command not found\n");
 	else
 		ft_printf("Error: program couldn't proceed\n");
-	exit(1);
+	exit(errno);
 }
 /*
 void	print_result(char **result)

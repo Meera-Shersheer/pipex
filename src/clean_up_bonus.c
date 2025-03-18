@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_up_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:58:46 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 03:15:08 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:12:08 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ void	exit_pipes(t_dlist **list, int (*fd)[2], int i, int j)
 	int k;
 	
 	k = j;
+	if((*list)->infile_h != NULL)
+	{
+		unlink((*list)->infile_h);
+		free((*list)->infile_h);
+	}
 	if (list != NULL)
 		free_stack(list);
 	while(i >= 0)
@@ -24,7 +29,8 @@ void	exit_pipes(t_dlist **list, int (*fd)[2], int i, int j)
 		j = k;
 		while(j >= 0)
 		{
-			close(fd[i][j]);
+			if(fd[i][j] > -1)
+				close(fd[i][j]);
 			j--;
 		}
 			i--;
@@ -32,26 +38,34 @@ void	exit_pipes(t_dlist **list, int (*fd)[2], int i, int j)
 	perror("Error");
 	exit(errno);
 }
+
 void close_unused(int (*fd)[2],int i, int j)
 {
 	while(i >= 0)
 	{
-		if (i != j)
+		if (i != j && fd[i][0] > -1 )
 			close(fd[i][0]);
-		if (i != j + 1)
+		if (i != j + 1 && fd[i][1] > -1)
 			close(fd[i][1]);
 		i--;
 	}
 }
-void	exit_pipex(t_dlist **list, char **ptr)
+
+void	exit_pipex(t_dlist **list, char **ptr, char **tempfile)
 {
+	if(tempfile != NULL && *tempfile != NULL)
+	{
+		unlink(*tempfile);
+		free(*tempfile);
+	}
 	if (list != NULL)
 		free_stack(list);
 	if (ptr != NULL)
 		ft_free(ptr);
 	perror("Error");
-	exit(1);
+	exit(errno);
 }
+
 void	exit_program_leak(char **ptr1, char **ptr2, int fd1, int fd2)
 {
 	if (ptr1 != NULL)

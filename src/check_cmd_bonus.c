@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:44:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 03:21:40 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:15:11 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex_bonus.h"
 
-char **check_cmd_path(char *cmd_arg, char **envp)
+char **check_cmd_path(char *cmd_arg, char **envp, char *tempfile)
 {
 	char *path_env;
 	char *temp;
@@ -25,7 +25,7 @@ char **check_cmd_path(char *cmd_arg, char **envp)
 	if(ft_isalpha(cmd[0][0]) == 0)
 	{
 		if (access(cmd[0], F_OK | X_OK) != 0)
-			exit_pipex(NULL, cmd);
+			exit_pipex(NULL, cmd, &tempfile);
 	}
 	else 
 	{

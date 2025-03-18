@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 19:28:58 by mshershe          #+#    #+#             */
-/*   Updated: 2025/02/14 19:14:32 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/18 13:09:36 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static char	*gnl_get_line(char **line)
 		ft_free (line);
 	*line = gnl_substr(*line, i + 1, gnl_strlen(*line) - i - 1);
 	free(buff);
+	ft_free (line);
 	return (res);
 }
 
