@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:39:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 04:54:13 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/19 01:00:56 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <string.h>
 
 
 // utils
@@ -40,6 +41,7 @@ char	*check_cmd_exist(char **cmd, char *path_env);
 //pipex
 void exit_program(char **ptr1, char **ptr2, int fd1, int fd2);
 void	exit_program_leak(char **ptr1, char **ptr2, int fd1, int fd2);
+void exit_program_wo_e(char **ptr1, char **ptr2, int fd1, int fd2);
 /*void	print_result(char **result);*/
 void wrong_n_arguments(int n_arg);
 //execute_cmd

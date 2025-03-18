@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:44:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/18 16:57:47 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/19 02:08:44 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ char **check_cmd_path(char *cmd_arg, char **envp)
 	if(ft_isalpha(cmd[0][0]) == 0)
 	{
 		if (access(cmd[0], F_OK | X_OK) != 0)
-			perror("Error: ");
-			//exit_program(cmd, NULL, -1, -1);
+			ft_printf("Error: %s: %s\n", cmd[0], strerror(errno));
 	}
 	else
 	{
@@ -83,7 +82,7 @@ char	*check_cmd_exist(char **cmd, char *path_env)
 	i = 0;
 	while (i < ft_strlen_d(dir))
 	{
-		temp = ft_strjoin(dir[i], "/");
+		temp = ft_strjoin(dir[i++], "/");
 		if(temp == NULL)
 			exit_program_leak(cmd, dir, -1, -1);
 		path = ft_strjoin(temp, cmd[0]);
@@ -94,9 +93,7 @@ char	*check_cmd_exist(char **cmd, char *path_env)
 		if (access(path, F_OK | X_OK) == 0)
 			return(ft_free(dir), path);
 		free(path);
-		i++;
 	}
-	
-	perror("Error: ");
+	ft_printf("Error: Command %s not found\n", cmd[0]);
 	return ( NULL);
 }
