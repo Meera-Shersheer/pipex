@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:39:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/18 05:55:51 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/18 07:34:59 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_dlist
 {
 	struct s_dlist	*pre;
     char    **cmd;
+	char    add_trunc;
 	struct s_dlist	*next;
 }					t_dlist;
 
@@ -61,6 +62,8 @@ char	*check_cmd_exist(char **cmd, char *path_env);
 
 //pipex
 void	exit_pipex(t_dlist **list, char **ptr);
+char *create_unique_infile();
+
 /*void	print_result(char **result);*/
 void wrong_n_arguments(int n_arg);
 //execute_cmd
@@ -75,10 +78,7 @@ void close_unused( int (*fd)[2],int i, int j);
 void	exit_pipex(t_dlist **list, char **ptr);
 void	exit_program_leak(char **ptr1, char **ptr2, int fd1, int fd2);
 
-//heredoc
-char *here_doc(char *limiter, t_dlist *list, char *outfile);
-char *read_stdin(int *fd, char *limiter);
+void here_doc(char *limiter, t_dlist *list, char *temp_infile);
+char *read_stdin(int *fd, char *limiter, int fd_infile);
 void check_rest(t_dlist **list, int argc, char **argv, char **envp);
-void	child_process_here(t_dlist *list, int (*fd)[2],char *outfile);
-void	set_fds_here(t_dlist *list, int (*fd)[2],char *outfile);
 #endif

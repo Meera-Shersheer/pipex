@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dlist_help_2_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:32:29 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/11 15:11:06 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/18 07:22:27 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_dlist	*create_dlist(char **cmd)
 	else
 	{
 		list->cmd = cmd;
+		list->add_trunc = 0;
 		list->pre = NULL;
 		list->next = NULL;
 	}
