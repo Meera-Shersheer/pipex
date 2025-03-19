@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:58:46 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/19 04:00:57 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:35:28 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	exit_pipes(t_dlist **list, int (*fd)[2], int i, int j)
 	k = j;
 	if (list != NULL)
 		free_stack(list);
-	while(i >= 0)
+	while (i >= 0)
 	{
 		j = k;
-		while(j >= 0)
+		while (j >= 0)
 		{
-			if(fd[i][j] > -1)
-				close(fd[i][j]);
+			if (fd[i][j] > -1)
+				close (fd[i][j]);
 			j--;
 		}
 			i--;

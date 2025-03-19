@@ -6,17 +6,17 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:44:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/19 03:59:44 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:34:25 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex_bonus.h"
 
-char **check_cmd_path(char *cmd_arg, char **envp)
+char	**check_cmd_path(char *cmd_arg, char **envp)
 {
-	char *path_env;
-	char *temp;
-	char **cmd;
+	char	*path_env;
+	char	*temp;
+	char	**cmd;
 	
 	path_env = NULL;
 	cmd = ft_split(cmd_arg, ' ');
@@ -39,8 +39,8 @@ char **check_cmd_path(char *cmd_arg, char **envp)
 
 char	*get_env_path(char **envp)
 {
-	int i;
-	int list;
+	int	i;
+	int	list;
 
 	i = 0;
 	list = ft_strlen_d(envp);
@@ -55,8 +55,8 @@ char	*get_env_path(char **envp)
 
 char	**get_directories(char **cmd, char *path_env)
 {
-	char **dir;
-	char *path_var;
+	char	**dir;
+	char	*path_var;
 
 	path_var = ft_strtrim_start(path_env, "PATH=");
 	if(path_var == NULL)
@@ -71,10 +71,10 @@ char	**get_directories(char **cmd, char *path_env)
 
 char	*check_cmd_exist(char **cmd, char *path_env)
 {
-	char **dir;
-	char *path;
-	char *temp;
-	size_t i;
+	char	**dir;
+	char	*path;
+	char	*temp;
+	size_t	i;
 
 	dir = get_directories(cmd, path_env);
 	if(dir == NULL)
