@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_up_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:58:46 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/18 14:12:08 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/19 04:00:57 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@ void	exit_pipes(t_dlist **list, int (*fd)[2], int i, int j)
 	int k;
 	
 	k = j;
-	if((*list)->infile_h != NULL)
-	{
-		unlink((*list)->infile_h);
-		free((*list)->infile_h);
-	}
 	if (list != NULL)
 		free_stack(list);
 	while(i >= 0)
@@ -51,13 +46,8 @@ void close_unused(int (*fd)[2],int i, int j)
 	}
 }
 
-void	exit_pipex(t_dlist **list, char **ptr, char **tempfile)
+void	exit_pipex(t_dlist **list, char **ptr)
 {
-	if(tempfile != NULL && *tempfile != NULL)
-	{
-		unlink(*tempfile);
-		free(*tempfile);
-	}
 	if (list != NULL)
 		free_stack(list);
 	if (ptr != NULL)
