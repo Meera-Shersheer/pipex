@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:44:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/19 20:34:01 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/19 21:44:21 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ char	**check_cmd_path(char **cmd, char **envp)
 	path_env = NULL;
 	if (cmd == NULL || *cmd == NULL)
 		return (cmd);
-	if (ft_strncmp(cmd[0], "./", 2) == 0 || ft_strncmp(cmd[0], "/", 1) == 0 \
-	|| ft_strncmp(cmd[0], "../", 3) == 0)
+	if (ft_strncmp(cmd[0], ".", 1) == 0 || ft_strncmp(cmd[0], "/", 1) == 0)
 	{
 		if (access(cmd[0], F_OK | X_OK) != 0)
 			ft_printf("Error: %s: %s\n", cmd[0], strerror(errno));
@@ -81,17 +80,17 @@ char	*check_cmd_exist(char **cmd, char *path_env)
 	if (dir == NULL)
 		return (NULL);
 	i = 0;
-	while (i < ft_strlen_d(dir))
+	while (dir[i])
 	{
 		temp = ft_strjoin(dir[i++], "/");
 		if (temp == NULL)
-			free_norm (dir, NULL);
+			return(free_norm (dir, NULL));
 		path = ft_strjoin(temp, cmd[0]);
 		free(temp);
 		if (path == NULL)
-			free_norm (dir, NULL);
+			return(free_norm (dir, NULL));
 		if (access(path, F_OK | X_OK) == 0)
-			free_norm (dir, path);
+			return(free_norm (dir, path));
 		free(path);
 	}
 	write(2, cmd[0], ft_strlen(cmd[0]));

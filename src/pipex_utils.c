@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:45 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/19 20:52:05 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/19 21:11:17 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,17 @@ char	**command_matrix(char *argv)
 {
 	char	**cmd;
 
-	cmd = ft_split(argv[2], ' ');
+	cmd = ft_split(argv, ' ');
 	if (cmd == NULL)
 	{
 		perror("cmd allocate");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
+	return (cmd);
 }
 
 void	error_norm(char *text)
 {
 	perror(text);
-	exit(1);
+	exit(EXIT_FAILURE);
 }

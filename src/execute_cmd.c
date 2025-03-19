@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:00:34 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/19 20:52:32 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/19 21:44:56 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	exceute_cmd_out(char **argv, char **envp, int *pipe_fd)
 		cmd = command_matrix(argv[3]);
 		args = check_cmd_path(cmd, envp);
 		if (!args)
-			exit(1);
+			exit(EXIT_FAILURE);
 		execve(args[0], cmd, NULL);
 		exit_program(args, -1, -1);
 	}
@@ -82,7 +82,7 @@ void	pipex(char **argv, char **envp)
 	if (pipe(pipefd) == -1)
 	{
 		perror("Error");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	exceute_cmd_in(argv, envp, pipefd);
 	exceute_cmd_out(argv, envp, pipefd);
