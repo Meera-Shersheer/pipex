@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:00:34 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/19 02:26:23 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/19 05:22:43 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exceute_cmd_in(char **args1, char **args2, char *infile, int *pipe_fd)
 	pid_t	id;
 
 	close(pipe_fd[0]);
-	fd = check_emptyfile(infile, args1, args2, pipe_fd);
+	fd = open(infile, O_RDONLY);
 	if (dup2(fd, STDIN_FILENO) == -1)
 		return ;
 	if ((dup2(pipe_fd[1], STDOUT_FILENO)) == -1)
@@ -30,27 +30,6 @@ void	exceute_cmd_in(char **args1, char **args2, char *infile, int *pipe_fd)
 		execve(args1[0], args1, NULL);
 	close(pipe_fd[1]);
 	close(fd);
-}
-
-int	check_emptyfile(char *infile, char **args1, char **args2, int *pipe_fd)
-{
-	int		fd;
-	char	buffer[1];
-
-	fd = open(infile, O_RDONLY);
-	if (fd != -1 && read(fd, buffer, 1) == 0)
-	{
-		close(fd);
-		fd = open("/dev/null", O_RDONLY);
-		if (fd == -1)
-			exit_program(args1, args2, -1, pipe_fd[1]);
-	}
-	else if (fd != -1)
-	{
-		close(fd);
-		fd = open(infile, O_RDONLY);
-	}
-	return (fd);
 }
 
 void	exceute_cmd_out(char **args1, char **args2, char *outfile, int *pipe_fd)

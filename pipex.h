@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:39:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/19 01:00:56 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/19 05:22:51 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,4 @@ void wrong_n_arguments(int n_arg);
 void    exceute_cmd_in(char **args1, char **args2, char *infile, int *pipe_fd);
 void    exceute_cmd_out(char **args1, char **args2, char *outfile,int *pipe_fd);
 void pipex(char **args1, char **args2, char *infile, char *outfile);
-int check_emptyfile(char *infile, char **args1,char **args2, int *pipe_fd);
 #endif
