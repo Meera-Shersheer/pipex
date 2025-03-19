@@ -3,7 +3,7 @@ BNS= pipex_utils_bonus.c pipex_bonus.c check_cmd_bonus.c execute_cmd_bonus.c ft_
 ft_dlist_help_2_bonus.c ft_dlist_help_3_bonus.c clean_up_bonus.c here_doc_bonus.c
 
 NAME = pipex
-BNS_NAME = pipex
+BNS_NAME = pipex_bonus
 
 CC= cc
 CFLAGS= -Wall -Wextra -Werror -g3 
@@ -26,6 +26,9 @@ all: $(NAME)
 $(NAME): $(OBJ_SRC) | libft
 	$(CC) $(CFLAGS) $(OBJ_SRC) -o $(NAME) -L$(LFTDIR) -lft
 
+$(BNS_NAME): $(OBJ_BNS)| libft 
+	$(CC) $(CFLAGS) $(OBJ_BNS) -o $(BNS_NAME) -L$(LFTDIR) -lft
+
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR) 
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -37,8 +40,7 @@ clean:
 	@rm -rf $(OBJ_SRC) $(OBJ_DIR)
 	@$(MAKE) -sC $(LFTDIR) clean
 
-bonus: $(OBJ_BNS)| libft 
-	$(CC) $(CFLAGS) $(OBJ_BNS) -o $(BNS_NAME) -L$(LFTDIR) -lft
+bonus: $(BNS_NAME)
 
 fclean: clean
 	@rm -f $(OBJ_SRC) 

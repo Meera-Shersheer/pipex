@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:45 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/15 03:17:22 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/19 20:52:05 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,22 @@ void	ft_free(char **matrix)
 		row++;
 	}
 	free (matrix);
+}
+
+char	**command_matrix(char *argv)
+{
+	char	**cmd;
+
+	cmd = ft_split(argv[2], ' ');
+	if (cmd == NULL)
+	{
+		perror("cmd allocate");
+		exit(1);
+	}
+}
+
+void	error_norm(char *text)
+{
+	perror(text);
+	exit(1);
 }

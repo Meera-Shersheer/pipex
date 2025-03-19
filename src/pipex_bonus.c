@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:00:32 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/19 04:11:42 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/19 14:17:18 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int main(int argc, char **argv, char **envp)
 		len = ft_strlen("here_doc");
 	if (ft_strncmp(argv[1], "here_doc", len) == 0)
 	{
+		fprintf(stderr, "pid: %d\n", getpid());
 		check_rest(&cmd_list, argc, argv, envp);
 		here_doc(argv[2], cmd_list, argv[argc - 1]);
 		if (cmd_list != NULL)
@@ -44,10 +45,10 @@ int main(int argc, char **argv, char **envp)
 			cmd_list = add_last_dlist(cmd_list, create_dlist(check_cmd_path(argv[i], envp)));
 		i++;
 	}
-	if (access(argv[argc - 1], F_OK) != 0)
-		open(argv[argc - 1], O_CREAT , S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	if (access(argv[argc - 1], W_OK) != 0)
-		ft_printf("Error: %s: %s\n", argv[argc - 1], strerror(errno));
+	// if (access(argv[argc - 1], F_OK) != 0)
+	// 	open(argv[argc - 1], O_CREAT | O_TRUNC , S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	// if (access(argv[argc - 1], W_OK) != 0)
+	// 	ft_printf("Error: %s: %s\n", argv[argc - 1], strerror(errno));
 	pipex_multi(cmd_list, argv[1], argv[argc - 1]);
 	if (cmd_list != NULL)
 		free_stack(&cmd_list);

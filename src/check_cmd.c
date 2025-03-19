@@ -3,26 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:44:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/19 02:31:23 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/03/19 20:34:01 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-char	**check_cmd_path(char *cmd_arg, char **envp)
+char	**check_cmd_path(char **cmd, char **envp)
 {
 	char		*path_env;
 	char		*temp;
-	char		**cmd;
 
 	path_env = NULL;
-	cmd = ft_split(cmd_arg, ' ');
-	if (cmd == NULL)
-		exit_program_leak(NULL, NULL, -1, -1);
-	if (ft_isalpha(cmd[0][0]) == 0)
+	if (cmd == NULL || *cmd == NULL)
+		return (cmd);
+	if (ft_strncmp(cmd[0], "./", 2) == 0 || ft_strncmp(cmd[0], "/", 1) == 0 \
+	|| ft_strncmp(cmd[0], "../", 3) == 0)
 	{
 		if (access(cmd[0], F_OK | X_OK) != 0)
 			ft_printf("Error: %s: %s\n", cmd[0], strerror(errno));
@@ -31,6 +30,8 @@ char	**check_cmd_path(char *cmd_arg, char **envp)
 	{
 		path_env = get_env_path(envp);
 		temp = check_cmd_exist(cmd, path_env);
+		if (temp == NULL)
+			return (NULL);
 		free(cmd[0]);
 		cmd[0] = temp;
 	}
@@ -60,12 +61,12 @@ char	**get_directories(char **cmd, char *path_env)
 
 	path_var = ft_strtrim_start(path_env, "PATH=");
 	if (path_var == NULL)
-		exit_program_leak(cmd, NULL, -1, -1);
+		exit_program_leak(cmd, -1, -1);
 	dir = ft_split(path_var, ':');
 	if (path_var)
 		free(path_var);
 	if (dir == NULL)
-		exit_program_leak(cmd, NULL, -1, -1);
+		exit_program_leak(cmd, -1, -1);
 	return (dir);
 }
 
@@ -78,22 +79,29 @@ char	*check_cmd_exist(char **cmd, char *path_env)
 
 	dir = get_directories(cmd, path_env);
 	if (dir == NULL)
-		exit_program_leak(cmd, NULL, -1, -1);
+		return (NULL);
 	i = 0;
 	while (i < ft_strlen_d(dir))
 	{
 		temp = ft_strjoin(dir[i++], "/");
 		if (temp == NULL)
-			exit_program_leak(cmd, dir, -1, -1);
+			free_norm (dir, NULL);
 		path = ft_strjoin(temp, cmd[0]);
-		if (temp)
-			free(temp);
+		free(temp);
 		if (path == NULL)
-			exit_program_leak(cmd, dir, -1, -1);
+			free_norm (dir, NULL);
 		if (access(path, F_OK | X_OK) == 0)
-			return (ft_free(dir), path);
+			free_norm (dir, path);
 		free(path);
 	}
-	ft_printf("Error: Command %s not found\n", cmd[0]);
+	write(2, cmd[0], ft_strlen(cmd[0]));
+	write(2, ": command not found\n", ft_strlen(": command not found\n"));
 	return (NULL);
+}
+
+char	*free_norm(char **ptr, char *ret)
+{
+	if (ptr != NULL)
+		ft_free(ptr);
+	return (ret);
 }
