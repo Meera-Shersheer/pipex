@@ -6,13 +6,13 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:58:46 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/19 10:35:28 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/09/11 01:20:04 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex_bonus.h"
 
-void	exit_pipes(t_dlist **list, int (*fd)[2], int i, int j)
+void	exit_pipes(t_dlist **list, int fd[2], int i, int j)
 {
 	int k;
 	
@@ -24,8 +24,8 @@ void	exit_pipes(t_dlist **list, int (*fd)[2], int i, int j)
 		j = k;
 		while (j >= 0)
 		{
-			if (fd[i][j] > -1)
-				close (fd[i][j]);
+			if (fd[j] > -1)
+				close (fd[j]);
 			j--;
 		}
 			i--;

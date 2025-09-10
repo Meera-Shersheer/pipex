@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:39:59 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/19 04:14:17 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/09/11 02:34:24 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,16 @@ void				exit_pipex(t_dlist **list, char **ptr);
 /*void	print_result(char **result);*/
 void				wrong_n_arguments(int n_arg);
 // execute_cmd
-void				set_fds(t_dlist *list, int (*fd)[2], char *infile,
+void				set_fds(t_dlist *list, int fd[2], char *infile,
 						char *outfile);
 void				pipex_multi(t_dlist *list, char *infile, char *outfile);
-void				set_pipes(t_dlist *list, int (*fd)[2]);
-void				child_process(t_dlist *list, int (*fd)[2], char *infile,
+void				set_pipes(t_dlist *list, int fd[2]);
+void				child_process(t_dlist *list, int fd[2], char *infile,
 						char *outfile);
-int					check_emptyfile(char *infile, t_dlist *list, int (*fd)[2],
+int					check_emptyfile(char *infile, t_dlist *list, int fd[2],
 						int j);
 // cleanup
-void				exit_pipes(t_dlist **list, int (*fd)[2], int i, int j);
+void				exit_pipes(t_dlist **list, int fd[2], int i, int j);
 void				close_unused(int (*fd)[2], int i, int j);
 void				exit_program_leak(char **ptr1, char **ptr2, int fd1,
 						int fd2);
@@ -85,7 +85,12 @@ void				read_stdin(int *fd, char *limiter);
 void				check_rest(t_dlist **list, int argc, char **argv,
 						char **envp);
 void				pipex_multi_hdoc(t_dlist *list, char *infile, char *outfile,
-						int (*fd)[2]);
+						int fd[2]);
 int					check_emptyfile_hdoc(char *infile, t_dlist *list,
 						int (*fd)[2], int j);
+
+//retry
+void pipex_bonus(t_dlist *list, char *infile, char *outfile);
+void child_process_2(t_dlist *list, int fd[2], char *infile, char *outfile,int prev_fd);
+
 #endif

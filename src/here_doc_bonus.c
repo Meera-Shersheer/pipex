@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 22:19:51 by mshershe          #+#    #+#             */
-/*   Updated: 2025/03/19 14:39:32 by mshershe         ###   ########.fr       */
+/*   Updated: 2025/09/11 01:22:46 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void here_doc(char *limiter, t_dlist *list, char *outfile)
 {
-	int	hdoc_fd[dlistsize(list) - 1][2];
+	int	hdoc_fd[2];
 
 	set_pipes(list, hdoc_fd);
-	read_stdin(hdoc_fd[0], limiter);
+	read_stdin(hdoc_fd, limiter);
 	list->add_trunc = 'p';
 	sleep(1000);
 	pipex_multi_hdoc(list, NULL, outfile, hdoc_fd);
